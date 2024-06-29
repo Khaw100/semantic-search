@@ -7,7 +7,6 @@ huggingface-hub
 sentence-transformers
 regex
 nltk==3.8.1
-re
 pickle
 scikit-learn
 scipy
