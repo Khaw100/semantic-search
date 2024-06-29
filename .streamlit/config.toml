@@ -1,0 +1,4 @@
+[server]
+headless = True
+[runtime]
+python_version = '3.10'
