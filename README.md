@@ -1,1 +1,1 @@
-# semantic-search
+# SemanticSearch
