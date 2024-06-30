@@ -19,9 +19,9 @@ filename_ft_minilm = 'ft_sbert_unstemmed_model_minilm_v2.pxl'
 # Function to load the model
 @st.cache_resource
 def load_model(filename, repo_id):
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
-    model = torch.load(file_path, map_location=device)
+    model = torch.load(file_path, map_location='cpu')
     return model
 
 model_dict = {
