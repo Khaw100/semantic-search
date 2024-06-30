@@ -27,7 +27,7 @@ filename_ft_minilm = 'sbert_unstemmed_model_allmpnet_v2.pxl'
     
 #     return model
 @st.cache_resource
-def load_model(filename, repo_id):
+def load_model(filename):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
     model = torch.load(file_path, map_location=device)
