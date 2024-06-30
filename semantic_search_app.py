@@ -1,9 +1,8 @@
 import streamlit as st
 from ModelClasses import *  # Import your model classes
 from huggingface_hub import hf_hub_download
-import pickle
+import torch
 import csv
-from streamlit import radio  # Import the necessary component
 
 # Set page configuration
 st.set_page_config(page_title="EduLearning", page_icon=":books:", layout="centered")
@@ -11,36 +10,27 @@ st.set_page_config(page_title="EduLearning", page_icon=":books:", layout="center
 # Load the models
 repo_id = 'Wipiii/Semantic'
 filename_allmpnet = 'sbert_unstemmed_model_allmpnet_v2.pxl'
-filename_minilm = 'sbert_unstemmed_model_allmpnet_v2.pxl'
-filename_mpnet = 'sbert_unstemmed_model_allmpnet_v2.pxl'
-filename_ft_mpnet = 'sbert_unstemmed_model_allmpnet_v2.pxl'
+filename_minilm = 'sbert_unstemmed_model_minilm_v2.pxl'
+filename_mpnet = 'sbert_unstemmed_model_mpnet_v2.pxl'
+filename_ft_mpnet = 'sbert_unstemmed_model_ft_mpnet_v2.pxl'
 filename_ft_allmpnet = 'ft_sbert_unstemmed_model_allmpnet_v2.pxl'
-filename_ft_minilm = 'sbert_unstemmed_model_allmpnet_v2.pxl'
+filename_ft_minilm = 'ft_sbert_unstemmed_model_minilm_v2.pxl'
 
 # Function to load the model
-# @st.cache_resource
-# def load_model(filename):
-#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-#     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
-#     with open(file_path, 'rb') as f:
-#         model = pickle.load(f)
-    
-#     return model
 @st.cache_resource
-def load_model(filename):
+def load_model(filename, repo_id):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
     model = torch.load(file_path, map_location=device)
-    
     return model
 
 model_dict = {
-    "allmpnet_v2": load_model(filename_allmpnet),
-    "minilm_v2": load_model(filename_minilm),
-    "mpnet_base_dot_v1": load_model(filename_mpnet),
-    "ft_allmpnet_v2": load_model(filename_ft_allmpnet),
-    "ft_minilm_v2": load_model(filename_ft_minilm),
-    "ft_mpnet_base_dot_v1": load_model(filename_ft_mpnet),
+    "allmpnet_v2": load_model(filename_allmpnet, repo_id),
+    "minilm_v2": load_model(filename_minilm, repo_id),
+    "mpnet_base_dot_v1": load_model(filename_mpnet, repo_id),
+    "ft_allmpnet_v2": load_model(filename_ft_allmpnet, repo_id),
+    "ft_minilm_v2": load_model(filename_ft_minilm, repo_id),
+    "ft_mpnet_base_dot_v1": load_model(filename_ft_mpnet, repo_id),
 }
 
 # Function to save feedback to a file
