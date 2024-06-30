@@ -19,9 +19,20 @@ filename_ft_minilm = 'ft_sbert_unstemmed_model_minilm_v2.pxl'
 # Function to load the model
 @st.cache_resource
 def load_model(filename, repo_id):
-    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # Ensure device is set to CPU
+    device = torch.device('cpu')
+    
+    # Download the file from Hugging Face Hub
     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
-    model = torch.load(file_path, map_location='cpu')
+    
+    # Load the model with appropriate map_location
+    with open(file_path, 'rb') as f:
+        try:
+            model = torch.load(f, map_location=device)
+        except RuntimeError as e:
+            st.error(f"Error loading model: {e}")
+            model = None
+    
     return model
 
 model_dict = {
