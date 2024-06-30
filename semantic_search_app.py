@@ -18,14 +18,19 @@ filename_ft_allmpnet = 'ft_sbert_unstemmed_model_allmpnet_v2.pxl'
 filename_ft_minilm = 'sbert_unstemmed_model_allmpnet_v2.pxl'
 
 # Function to load the model
+# @st.cache_resource
+# def load_model(filename):
+#     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
+#     with open(file_path, 'rb') as f:
+#         model = pickle.load(f)
+    
+#     return model
 @st.cache_resource
-def load_model(filename):
-    # Download the model file
+def load_model(filename, repo_id):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
-
-    # Load the model from the file
-    with open(file_path, 'rb') as f:
-        model = pickle.load(f)
+    model = torch.load(file_path, map_location=device)
     
     return model
 
