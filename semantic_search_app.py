@@ -3,6 +3,7 @@ from ModelClasses import *  # Import your model classes
 from huggingface_hub import hf_hub_download
 import torch
 import csv
+import pickle
 
 # Set page configuration
 st.set_page_config(page_title="EduLearning", page_icon=":books:", layout="centered")
@@ -18,19 +19,20 @@ filename_ft_minilm = 'ft_sbert_unstemmed_model_minilm_v2.pxl'
 
 # Function to load the model
 @st.cache_resource
+# def load_model(filename, repo_id):
+#     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
+#     if torch.cuda.is_available():
+#         model = torch.load(file_path)
+#     else:
+#         print('Aufa')
+#         model = torch.load(file_path, map_location=torch.device('cpu'))
+#     return model
+
 def load_model(filename, repo_id):
     file_path = hf_hub_download(repo_id=repo_id, filename=filename)
-    if torch.cuda.is_available():
-        model = torch.load(file_path)
-    else:
-        print('Aufa')
-        model = torch.load(file_path, map_location=torch.device('cpu'))
+    with open(file_path, 'rb') as file:
+        model = pickle.load(file)
     return model
-
-# RuntimeError: Attempting to deserialize object on a CUDA device but 
-# torch.cuda.is_available() is False. If you are running on a CPU-only machine, 
-# please use torch.load with map_location=torch.device('cpu') to map your storages
-# to the CPU.
 
 model_dict = {
     "allmpnet_v2": load_model(filename_allmpnet, repo_id),
