@@ -10,12 +10,20 @@ st.set_page_config(page_title="EduLearning", page_icon=":books:", layout="center
 
 # Load the models
 repo_id = 'Wipiii/Semantic'
-filename_allmpnet = 'sbert_unstemmed_model_allmpnet_v2.pxl'
-filename_minilm = 'sbert_unstemmed_model_minilm_v2.pxl'
-filename_mpnet = 'sbert_unstemmed_model_mpnet_v2.pxl'
-filename_ft_mpnet = 'sbert_unstemmed_model_ft_mpnet_v2.pxl'
-filename_ft_allmpnet = 'ft_sbert_unstemmed_model_allmpnet_v2.pxl'
-filename_ft_minilm = 'ft_sbert_unstemmed_model_minilm_v2.pxl'
+
+filename_allmpnet = 'semantic_allmpnet.pkl'
+filename_minilm = 'semantic_allmpnet.pkl'
+filename_mpnet = 'semantic_allmpnet.pkl'
+filename_ft_mpnet = 'semantic_allmpnet.pkl'
+filename_ft_allmpnet = 'semantic_allmpnet.pkl'
+filename_ft_minilm = 'semantic_allmpnet.pkl'
+
+# filename_allmpnet = 'sbert_unstemmed_model_allmpnet_v2.pxl'
+# filename_minilm = 'sbert_unstemmed_model_minilm_v2.pxl'
+# filename_mpnet = 'sbert_unstemmed_model_mpnet_v2.pxl'
+# filename_ft_mpnet = 'sbert_unstemmed_model_ft_mpnet_v2.pxl'
+# filename_ft_allmpnet = 'ft_sbert_unstemmed_model_allmpnet_v2.pxl'
+# filename_ft_minilm = 'ft_sbert_unstemmed_model_minilm_v2.pxl'
 
 # Function to load the model
 @st.cache_resource
