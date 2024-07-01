@@ -23,8 +23,14 @@ def load_model(filename, repo_id):
     if torch.cuda.is_available():
         model = torch.load(file_path)
     else:
+        print('Aufa')
         model = torch.load(file_path, map_location=torch.device('cpu'))
     return model
+
+# RuntimeError: Attempting to deserialize object on a CUDA device but 
+# torch.cuda.is_available() is False. If you are running on a CPU-only machine, 
+# please use torch.load with map_location=torch.device('cpu') to map your storages
+# to the CPU.
 
 model_dict = {
     "allmpnet_v2": load_model(filename_allmpnet, repo_id),
